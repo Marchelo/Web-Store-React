@@ -4,9 +4,13 @@ import { UserContext } from "../../contexts/user.context";
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import './navigation.styles.scss';
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
+import { CartContext } from "../../contexts/cart.context";
 
 const Navigation = () =>{
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <Fragment>
@@ -27,8 +31,9 @@ const Navigation = () =>{
                 <Link className="nav-link" to='/auth'>SIGN IN</Link>
               )
             }
-            
+            <CartIcon />
         </div>
+        { isCartOpen && <CartDropdown /> } {/* if both side are truth then && return last thing what is sended (CartDropdown), othervise if isCartOpen is false it will just exit  */}
       </div>
       <Outlet />
     </Fragment>
